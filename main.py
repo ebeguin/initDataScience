@@ -8,6 +8,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import logging as lg
+from sklearn.model_selection import train_test_split
 
 
 def plot_loyers_surface(matrice_loyers_surface, *args):
@@ -47,3 +48,4 @@ if __name__ == '__main__':
     theta_lb = linear_basic(x,y,house_data,lg)
     plot_loyers_surface ( house_data )
     plot_loyers_surface ( house_data, theta_lb )
+    xtrain, xtest, ytrain, ytest = train_test_split(x,y, train_size=0.8)
