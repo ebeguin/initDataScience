@@ -34,18 +34,20 @@ def vectorize_data (house_data, lg):
     lg.debug ( " y = {}".format ( y ) )
     return x,y
 
-def linear_basic(x, y, house_data, lg):
+def linear_basic(x, y, lg):
     theta_lb = np.linalg.inv ( x.T.dot ( x ) ).dot ( x.T ).dot ( y )
     lg.info ( "theta : {}".format ( theta_lb ) )
     return theta_lb
 
+def loyer_surface (source_file):
+    house_data = read_file (source_file,lg)
+    x,y = vectorize_data(house_data,lg)
+    theta_lb = linear_basic(x,y,lg)
+    plot_loyers_surface ( house_data )
+    plot_loyers_surface ( house_data, theta_lb )
 
 if __name__ == '__main__':
     # chargeons le dataset
     lg.basicConfig ( filename='ds.log', encoding='utf-8', level=lg.DEBUG )
-    house_data = read_file ('house.csv',lg)
-    x,y = vectorize_data(house_data,lg)
-    theta_lb = linear_basic(x,y,house_data,lg)
-    plot_loyers_surface ( house_data )
-    plot_loyers_surface ( house_data, theta_lb )
-    xtrain, xtest, ytrain, ytest = train_test_split(x,y, train_size=0.8)
+    loyer_surface('house.csv')
+
